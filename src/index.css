@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/*
+ * Same colours as the Ouderschap & Co parent app (src/styles.css there): sage-to-sand background,
+ * frosted glass cards, moss green brand, warm ink and sand borders, a muted brown instead of alarm red.
+ * Chart marks use --color-chart (#1F8A5B): the moss brand reads as gray on charts (validated chroma).
+ */
+@theme {
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-canvas: #f3ede3;          /* app: zand */
+  --color-surface: #fffdf9;         /* opaque warm white for fields, menus, dialogs */
+  --color-glass: rgb(255 255 255 / 0.62); /* app: glaskaart */
+  --color-subtle: #f7f1e8;
+  --color-line: #e6dccf;
+  --color-line-strong: #dcd1c2;     /* app: border */
+  --color-ink: #26211d;             /* app: ink */
+  --color-ink-soft: #524c46;        /* app: ink-soft */
+  --color-ink-muted: #8c8279;
+
+  --color-brand: #4f6b58;           /* app: mos */
+  --color-brand-strong: #3f5747;    /* app: ai-space / deep moss */
+  --color-brand-soft: #dce3d3;      /* app: salie */
+  --color-sand: #e4d5c7;            /* app: haver */
+  --color-chart: #1f8a5b;
+
+  --color-good: #3f5747;
+  --color-good-soft: #e9efe3;
+  --color-warn: #8a6520;
+  --color-warn-soft: #f6ebd3;
+  --color-bad: #a4533e;             /* app: declined / muted terracotta */
+  --color-bad-soft: #f4e2da;
+  --color-info: #2e4a68;
+  --color-info-soft: #dfe8f1;
+
+  --shadow-xs: 0 1px 2px rgb(60 50 40 / 0.05);
+  --shadow-card: 0 1px 2px rgb(60 50 40 / 0.04), 0 8px 24px -12px rgb(60 50 40 / 0.10);
+  --shadow-pop: 0 16px 40px -12px rgb(47 74 58 / 0.28), 0 2px 8px rgb(60 50 40 / 0.06);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply font-sans text-[14px] text-ink antialiased;
+  /* app: --app-verloop */
+  background: linear-gradient(170deg, #dce6d2 0%, #f3ede3 45%, #eadbc7 100%) fixed;
+  background-color: #f3ede3;
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* Browser autofill: keep the field colours (Chrome paints autofilled fields blue). */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  transition: background-color 9999s ease-out;
+}
+
+/* Keyboard focus ring; in the base layer so components can replace it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
